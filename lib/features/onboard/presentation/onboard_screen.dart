@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_onboard/flutter_onboard.dart';
+import 'package:mero_dokan/features/onboard/data/onboard_data.dart';
 
 class OnBoardScreen extends StatelessWidget {
   final PageController _pageController = PageController();
+  OnBoardScreen({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: OnBoard(
         pageController: _pageController,
         // Either Provide onSkip Callback or skipButton Widget to handle skip state
-        onSkip: () {
-          // print('skipped');
-        },
+        onSkip: () {},
         // Either Provide onDone Callback or nextButton Widget to handle done state
         onDone: () {
           // print('done tapped');
         },
-        onBoardData: onBoardData,
+        onBoardData: OnBoardData.onBoardData,
         titleStyles: const TextStyle(
           color: Colors.deepOrange,
           fontSize: 18,
@@ -37,7 +37,7 @@ class OnBoardScreen extends StatelessWidget {
         // Either Provide onSkip Callback or skipButton Widget to handle skip state
         skipButton: TextButton(
           onPressed: () {
-            // print('skipButton pressed');
+            Navigator.pushNamed(context, '/home');
           },
           child: const Text(
             "Skip",
@@ -49,7 +49,7 @@ class OnBoardScreen extends StatelessWidget {
           builder: (context, ref, child) {
             final state = ref.watch(onBoardStateProvider);
             return InkWell(
-              onTap: () => _onNextTap(state),
+              onTap: () => _onNextTap(state, context),
               child: Container(
                 width: 230,
                 height: 50,
@@ -75,7 +75,7 @@ class OnBoardScreen extends StatelessWidget {
     );
   }
 
-  void _onNextTap(OnBoardState onBoardState) {
+  void _onNextTap(OnBoardState onBoardState, BuildContext context) {
     if (!onBoardState.isLastPage) {
       _pageController.animateToPage(
         onBoardState.page + 1,
@@ -83,25 +83,7 @@ class OnBoardScreen extends StatelessWidget {
         curve: Curves.easeInOutSine,
       );
     } else {
-      //print("nextButton pressed");
+      Navigator.pushNamed(context, '/dashboard');
     }
   }
 }
-
-final List<OnBoardModel> onBoardData = [
-  const OnBoardModel(
-    title: "Buy different items online",
-    description: "Let your shopping beast unleash",
-    imgUrl: "assets/images/onboard/onboard_one.png",
-  ),
-  const OnBoardModel(
-    title: "Add your favorite items in your cart.",
-    description: "There are thousands of items that you can pick from.",
-    imgUrl: 'assets/images/onboard/onboard_two.png',
-  ),
-  const OnBoardModel(
-    title: "Buy your dream.",
-    description: "Buy and get your item within a day.",
-    imgUrl: 'assets/images/onboard/onboard_three.png',
-  ),
-];
