@@ -1,4 +1,7 @@
 class Product {
-  String imageName, titleText, subText;
-  Product(this.imageName, this.titleText, this.subText);
+  final String imageName, titleText, subText;
+  Product(
+      {required this.imageName,
+      required this.titleText,
+      required this.subText});
 }

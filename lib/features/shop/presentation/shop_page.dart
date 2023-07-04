@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mero_dokan/features/shop/presentation/product_list.dart';
+import 'package:mero_dokan/core/constants/product_details.dart';
 
 class ShopPage extends StatelessWidget {
   const ShopPage({super.key});
@@ -15,11 +16,11 @@ class ShopPage extends StatelessWidget {
           backgroundColor: Colors.red,
           title: const Text("Shop Page"),
         ),
-        body: const Column(children: [
+        body: Column(children: [
           /// `TabBar(tabs: tabs)` is creating a TabBar widget with the specified tabs. The `tabs`
           /// parameter is expected to be a list of Tab widgets that define the individual tabs to be
           /// displayed in the TabBar.
-          TabBar(
+          const TabBar(
             tabs: [
               Tab(
                 text: "Dolls",
@@ -40,7 +41,11 @@ class ShopPage extends StatelessWidget {
           /// there are no child widgets defined for the TabBarView.
           Expanded(
             child: TabBarView(
-              children: [ProductList(), ProductList(), ProductList()],
+              children: [
+                ProductList(productList: ProductDetails.doll),
+                ProductList(productList: ProductDetails.chocolate),
+                ProductList(productList: ProductDetails.flowers)
+              ],
             ),
           )
         ]),
