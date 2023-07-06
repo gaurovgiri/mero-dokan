@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mero_dokan/features/dashboard/dashboard.dart';
 import 'features/home/home.dart';
-import 'features/onboard/onboard.dart';
+// import 'features/onboard/onboard.dart';
 
 void main() {
   runApp(const App());
